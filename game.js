@@ -2,20 +2,27 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
+    for (let i = 0; i < 200; i++) {
+        const div = document.createElement('div');
+        grid.appendChild(div);
+    }
+    
     let squares = Array.from(document.querySelectorAll('.grid div'));
     const scoreDisplay = document.getElementById('score');
+    const startButton = document.getElementById('start-button');
     const width = 10;
     let timerId;
     let score = 0;
+    let gameActive = false;
 
     // Tetrominoes
     const lTetromino = [
-        [1, width+1, width*2+1, 2],
-        [width, width+1, width+2, width*2+2],
-        [1, width+1, width*2+1, width*2],
-        [width, width*2, width*2+1, width*2+2]
+        [1, width + 1, width * 2 + 1, 2],
+        [width, width + 1, width + 2, width * 2 + 2],
+        [1, width + 1, width * 2 + 1, width * 2],
+        [width, width * 2, width * 2 + 1, width * 2 + 2]
     ];
-    
+
     // Randomly select a Tetromino
     let currentPosition = 4;
     let currentRotation = 0;
@@ -94,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             moveDown();
         }
     }
+
     document.addEventListener('keyup', control);
 
     function addScore() {
@@ -114,5 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    timerId = setInterval(moveDown, 1000);
+    // Start/Pause Game
+    startButton.addEventListener('click', () => {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+            startButton.textContent = 'Resume Game';
+        } else {
+            draw();
+            timerId = setInterval(moveDown, 1000);
+            startButton.textContent = 'Pause Game';
+        }
+    });
 });
