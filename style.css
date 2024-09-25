@@ -38,3 +38,18 @@ body {
     font-size: 24px;
     margin-top: 20px;
 }
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #61dafb;
+    border: none;
+    color: #282c34;
+    border-radius: 5px;
+}
+
+button:focus {
+    outline: none;
+}
